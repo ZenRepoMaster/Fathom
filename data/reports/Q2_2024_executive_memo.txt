@@ -1,0 +1,18 @@
+Aurora Mobility Inc. — Q2 2024 note from the CEO
+
+From: Priya Natarajan
+Date: July 22, 2024
+
+Q2 was another solid step forward. Aurora Mobility posted $341.2 million in revenue, up 43% year-over-year. Gross margin reached 49.4% as network utilization and FleetOS mix kept improving. EBITDA came in at $68.4 million, and GAAP net income was $38.2 million — our third profitable quarter in a row.
+
+Public Network revenue grew to $168.9 million, up 48% year-over-year. We added 2,120 stalls in the quarter, including our first mega-hubs near Chicago, Dallas, and Rotterdam. Those mega-hubs are already running at about 1.6x the utilization of a typical corridor site. Advertising and retail partners at the hubs chipped in $6.2 million of high-margin ancillary revenue.
+
+Fleet Solutions hit $114.2 million, up 57% year-over-year. We signed 68 net new fleet customers and now serve 488 in total. Public-sector transit agencies had a particularly strong run — up 72% year-over-year and contributing $29 million of Fleet Solutions revenue. In June we closed a seven-year, $210 million depot-electrification deal with a national parcel carrier. That’s the largest contract in Aurora’s history.
+
+Residential revenue was $58.1 million, up 12% year-over-year. We kept consumer acquisition spending in check on purpose so unit economics stay healthy; HomeLink cohort payback improved from 16 months to 12. Registered members grew to 4.05 million, and ARPM moved up to $30.40.
+
+Headcount ended at 2,840. We also opened a European operations center in Munich to support stall rollout and utility talks across the EU.
+
+On product: FleetOS 3.0 went into early access with 85 fleets in June. Those early cohorts are seeing about 18% lower energy cost per mile versus unmanaged depots. We’re aiming for general availability in Q4 2024.
+
+— Priya Natarajan, CEO

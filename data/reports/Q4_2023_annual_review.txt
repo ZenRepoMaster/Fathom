@@ -1,0 +1,20 @@
+Aurora Mobility Inc. — Looking back at 2023 and Q4
+
+From: Priya Natarajan & Daniel Okonkwo
+Date: February 8, 2024
+
+Here’s the year in plain terms. Aurora Mobility generated $998.6 million in total revenue for fiscal 2023, up 48% from $674.9 million in 2022. That’s five years in a row of growth above 35%, and the first year we posted positive full-year EBITDA. GAAP net income was $8.0 million, versus a $136.6 million loss in 2022.
+
+Q4 itself came in at $281.7 million of revenue, up 49% year-over-year. Gross margin reached 47.1%. EBITDA was $42.1 million and net income was $15.8 million.
+
+By segment for the full year: Public Network contributed $479.8 million (48% of total), Fleet Solutions $307.4 million (31%), and Residential $211.4 million (21%). Fleet Solutions grew the fastest at 57% year-over-year, powered by depot electrification and FleetOS software attach.
+
+We closed 2023 with 24,800 active DC stalls and 3.12 million registered network members. Our top-quartile sites ran above 40% utilization in December. Capex for the year was $312 million.
+
+We spent $168 million on R&D (16.8% of revenue) and shipped three big releases: AuroraCharge Gen-4 hardware in Q1, the EU roaming gateway in Q3, and FleetOS early access in Q4. Those early-access fleets showed about 1.7x better depot energy efficiency than unmanaged sites.
+
+Balance sheet: we ended the year with $410 million in cash and undrawn revolvers, and nothing maturing soon. Gross leverage stayed light at 1.1x trailing EBITDA.
+
+A note from CFO Daniel Okonkwo: “We enter 2024 with pipeline coverage of 2.9x our Q1 quota. Full-year 2024 revenue guidance is $1.35–1.40 billion, with GAAP net income of $130–155 million. We’re putting capital into stall density, turning FleetOS into a real product, and a few selective European deals. We’re not planning share repurchases.”
+
+— Priya Natarajan, CEO; Daniel Okonkwo, CFO

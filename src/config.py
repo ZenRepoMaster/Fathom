@@ -1,0 +1,39 @@
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# LLM — HuggingFace Router (OpenAI-compatible)
+LLM_BASE_URL = os.getenv("LLM_BASE_URL", "https://router.huggingface.co/v1")
+LLM_MODEL    = os.getenv("LLM_MODEL",    "meta-llama/Llama-3.3-70B-Instruct")
+LLM_API_KEY  = os.getenv("LLM_API_KEY",  "")
+
+# Embeddings — HuggingFace Inference API (OpenAI-compatible)
+EMBEDDING_BASE_URL   = os.getenv("EMBEDDING_BASE_URL",   "https://router.huggingface.co/hf-inference")
+EMBEDDING_MODEL      = os.getenv("EMBEDDING_MODEL",      "BAAI/bge-small-en-v1.5")
+EMBEDDING_API_KEY    = os.getenv("EMBEDDING_API_KEY",    "")
+EMBEDDING_DIMENSIONS = int(os.getenv("EMBEDDING_DIMENSIONS", "384"))
+
+# Pinecone
+PINECONE_API_KEY    = os.getenv("PINECONE_API_KEY",    "")
+PINECONE_INDEX_NAME = os.getenv("PINECONE_INDEX_NAME", "financial-docs")
+PINECONE_REGION     = os.getenv("PINECONE_ENVIRONMENT", "us-east-1")
+
+# PostgreSQL
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://postgres:postgres@localhost:5432/financial_db")
+VERBOSE      = os.getenv("VERBOSE", "false").lower() == "true"
+
+
+def validate():
+    missing = []
+    if not LLM_API_KEY:
+        missing.append("LLM_API_KEY")
+    if not PINECONE_API_KEY:
+        missing.append("PINECONE_API_KEY")
+    if missing:
+        raise EnvironmentError(
+            f"Missing required environment variables: {', '.join(missing)}\n"
+            "Copy .env.example to .env and fill in your credentials."
+        )
+
+LLM_TEMPERATURE = float(os.environ.get("LLM_TEMPERATURE", "0.1"))

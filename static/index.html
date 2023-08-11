@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fathom</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:        #15202b;
+      --ink-soft:   #2a3a4a;
+      --paper:      #f2f5f8;
+      --paper-2:    #e6ebf1;
+      --surface:    #ffffff;
+      --line:       #c8d2dc;
+      --line-soft:  #dde4eb;
+      --coral:      #e85d4c;
+      --coral-dk:   #c44536;
+      --coral-soft: #fde8e4;
+      --sea:        #1f6f8b;
+      --sea-soft:   #d7eef5;
+      --muted:      #5d6d7c;
+      --code-bg:    #101820;
+      --code-text:  #d4e0ea;
+      --danger:     #b42318;
+      --danger-bg:  #fef3f2;
+      --danger-bd:  #fecdca;
+      --font:         "Figtree", system-ui, sans-serif;
+      --font-display: "Syne", system-ui, sans-serif;
+      --font-mono:    "JetBrains Mono", ui-monospace, monospace;
+      --rail: 280px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    body {
+      font-family: var(--font);
+      color: var(--ink);
+      min-height: 100vh;
+      background:
+        linear-gradient(90deg, rgba(21,32,43,.03) 1px, transparent 1px),
+        linear-gradient(rgba(21,32,43,.03) 1px, transparent 1px),
+        radial-gradient(ellipse 700px 420px at 100% -10%, rgba(232,93,76,.12), transparent 55%),
+        radial-gradient(ellipse 600px 380px at 0% 100%, rgba(31,111,139,.10), transparent 50%),
+        var(--paper);
+      background-size: 28px 28px, 28px 28px, auto, auto, auto;
+    }
+
+    .app {
+      display: grid;
+      grid-template-columns: var(--rail) 1fr;
+      min-height: 100vh;
+    }
+
+    /* ── Rail ────────────────────────────────────────────────── */
+    .rail {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      padding: 28px 22px 32px;
+      background: var(--ink);
+      color: #e8eef3;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      border-right: 3px solid var(--coral);
+      animation: slideIn .5s ease both;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-12px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .brand {
+      display: grid;
+      gap: 10px;
+    }
+    .brand-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .mark {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      background: var(--coral);
+      color: #fff;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.05rem;
+      letter-spacing: -.04em;
+      clip-path: polygon(0 0, 100% 0, 100% 72%, 72% 100%, 0 100%);
+    }
+    .logo {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.55rem;
+      letter-spacing: -.03em;
+      line-height: 1;
+    }
+    .logo span { color: var(--coral); }
+    .tagline {
+      font-size: .78rem;
+      line-height: 1.45;
+      color: rgba(232,238,243,.62);
+      max-width: 22ch;
+    }
+
+    .rail-block h2 {
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(232,238,243,.45);
+      margin-bottom: 12px;
+    }
+
+    .coverage-list {
+      display: grid;
+      gap: 10px;
+    }
+    .cov-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      font-size: .84rem;
+    }
+    .cov-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .cov-label { color: rgba(232,238,243,.55); }
+    .cov-value {
+      font-family: var(--font-mono);
+      font-size: .78rem;
+      color: #fff;
+      text-align: right;
+    }
+    .ticker-big {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.8rem;
+      letter-spacing: -.03em;
+      color: #fff;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .company-name {
+      font-size: .82rem;
+      color: rgba(232,238,243,.6);
+      margin-bottom: 16px;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .75rem;
+      color: rgba(232,238,243,.7);
+      margin-top: auto;
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: #3ecf8e;
+      box-shadow: 0 0 0 3px rgba(62,207,142,.2);
+      animation: blink 2.2s ease-in-out infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: .4; }
+    }
+
+    /* ── Stage ───────────────────────────────────────────────── */
+    .stage {
+      padding: 36px 40px 80px;
+      max-width: 920px;
+      width: 100%;
+      animation: rise .55s ease .08s both;
+    }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .intro {
+      margin-bottom: 28px;
+    }
+    .eyebrow {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: .72rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--sea);
+      margin-bottom: 12px;
+      padding-bottom: 4px;
+      border-bottom: 2px solid var(--coral);
+    }
+    .intro h1 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(2rem, 4vw, 2.85rem);
+      line-height: 1.05;
+      letter-spacing: -.04em;
+      color: var(--ink);
+      max-width: 14ch;
+    }
+    .intro h1 em {
+      font-style: normal;
+      color: var(--coral);
+    }
+    .intro p {
+      margin-top: 14px;
+      max-width: 46ch;
+      color: var(--muted);
+      font-size: 1.02rem;
+      line-height: 1.55;
+    }
+
+    .composer {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--coral);
+      padding: 18px 18px 16px;
+      margin-bottom: 22px;
+      box-shadow: 8px 8px 0 rgba(21,32,43,.06);
+      transition: box-shadow .2s, transform .2s;
+    }
+    .composer:focus-within {
+      box-shadow: 10px 10px 0 rgba(232,93,76,.18);
+      transform: translate(-1px, -1px);
+    }
+    .composer-label {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .input-row {
+      display: flex;
+      gap: 10px;
+      align-items: stretch;
+    }
+    #question {
+      flex: 1;
+      min-height: 54px;
+      padding: 14px 16px;
+      border: 1.5px solid var(--line);
+      font-size: 1rem;
+      font-family: inherit;
+      outline: none;
+      color: var(--ink);
+      background: var(--paper);
+      transition: border-color .18s, background .18s;
+    }
+    #question::placeholder { color: #8a9aab; }
+    #question:focus {
+      border-color: var(--sea);
+      background: #fff;
+    }
+    #ask-btn {
+      min-width: 120px;
+      border: none;
+      padding: 0 22px;
+      background: var(--ink);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: .95rem;
+      font-weight: 700;
+      letter-spacing: -.01em;
+      cursor: pointer;
+      transition: background .15s, transform .15s;
+      clip-path: polygon(0 0, 100% 0, 100% 70%, 88% 100%, 0 100%);
+    }
+    #ask-btn:hover:not(:disabled) {
+      background: var(--coral);
+    }
+    #ask-btn:disabled { opacity: .5; cursor: not-allowed; }
+
+    .starters-label {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .chips {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .chip {
+      text-align: left;
+      background: transparent;
+      border: 1px solid var(--line);
+      border-bottom-width: 3px;
+      padding: 14px 15px;
+      font-size: .86rem;
+      line-height: 1.4;
+      color: var(--ink);
+      cursor: pointer;
+      font-family: inherit;
+      transition: border-color .15s, background .15s, transform .15s;
+      min-height: 76px;
+    }
+    .chip:hover {
+      border-color: var(--coral);
+      background: var(--coral-soft);
+      transform: translateY(-2px);
+    }
+    .chip-kicker {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: .65rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--sea);
+      margin-bottom: 6px;
+    }
+
+    .idle-note {
+      padding: 16px 0;
+      color: var(--muted);
+      font-size: .92rem;
+      line-height: 1.55;
+      border-top: 1px dashed var(--line);
+    }
+    .idle-note strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    /* ── Loading ─────────────────────────────────────────────── */
+    #loading {
+      display: none;
+      margin-top: 8px;
+      padding: 24px 0;
+      animation: rise .35s ease both;
+    }
+    .loading-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.4rem;
+      letter-spacing: -.02em;
+      margin-bottom: 6px;
+    }
+    .loading-sub {
+      color: var(--muted);
+      font-size: .9rem;
+      margin-bottom: 22px;
+      font-family: var(--font-mono);
+    }
+    .pipeline {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    .pipe-step {
+      padding: 14px 12px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      transition: border-color .25s, background .25s, transform .25s;
+    }
+    .pipe-step.active {
+      border-color: var(--coral);
+      background: var(--coral-soft);
+      transform: translateY(-2px);
+    }
+    .pipe-step.done {
+      border-color: var(--sea);
+      background: var(--sea-soft);
+    }
+    .pipe-num {
+      font-family: var(--font-mono);
+      font-size: .68rem;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .pipe-label {
+      font-size: .82rem;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+    .pipe-bar {
+      margin-top: 18px;
+      height: 3px;
+      background: var(--line-soft);
+      overflow: hidden;
+    }
+    .pipe-bar > span {
+      display: block;
+      height: 100%;
+      width: 28%;
+      background: linear-gradient(90deg, var(--sea), var(--coral));
+      animation: sweep 1.5s ease-in-out infinite;
+    }
+    @keyframes sweep {
+      0% { transform: translateX(-120%); }
+      100% { transform: translateX(400%); }
+    }
+
+    .error-card {
+      background: var(--danger-bg);
+      border: 1px solid var(--danger-bd);
+      border-left: 4px solid var(--danger);
+      padding: 14px 18px;
+      color: var(--danger);
+      font-size: .9rem;
+      margin-top: 16px;
+      animation: rise .3s ease both;
+    }
+
+    /* ── Results ─────────────────────────────────────────────── */
+    #results {
+      display: none;
+      gap: 18px;
+      margin-top: 12px;
+    }
+    #results.show {
+      display: grid;
+      animation: rise .45s ease both;
+    }
+
+    .question-display {
+      display: grid;
+      gap: 8px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--ink);
+    }
+    .q-badge {
+      font-family: var(--font-mono);
+      font-size: .68rem;
+      font-weight: 500;
+      letter-spacing: .1em;
+      color: var(--coral);
+    }
+    .q-text {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.35rem;
+      line-height: 1.25;
+      letter-spacing: -.02em;
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: 1.4fr .85fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .final-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-top: 4px solid var(--ink);
+      overflow: hidden;
+    }
+    .final-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 20px;
+      background: var(--paper-2);
+      border-bottom: 1px solid var(--line);
+    }
+    .final-header-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: .95rem;
+      letter-spacing: -.01em;
+    }
+    .final-meta {
+      font-family: var(--font-mono);
+      font-size: .68rem;
+      color: var(--muted);
+    }
+    .final-body { padding: 22px 24px 26px; }
+
+    .md-content {
+      font-size: .95rem;
+      line-height: 1.75;
+    }
+    .md-content p { margin-bottom: .8em; }
+    .md-content p:last-child { margin-bottom: 0; }
+    .md-content strong { font-weight: 700; color: var(--ink); }
+    .md-content ul, .md-content ol {
+      padding-left: 1.35em;
+      margin-bottom: .85em;
+    }
+    .md-content li { margin-bottom: .3em; }
+    .md-content h1, .md-content h2, .md-content h3 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      letter-spacing: -.02em;
+      margin: 1.1em 0 .4em;
+      line-height: 1.25;
+    }
+    .md-content h3 { font-size: 1.12rem; }
+    .md-content code {
+      font-family: var(--font-mono);
+      background: var(--paper-2);
+      border: 1px solid var(--line-soft);
+      padding: 1px 5px;
+      font-size: .84em;
+    }
+
+    .details-section {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .accordion {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      overflow: hidden;
+      transition: border-color .15s;
+    }
+    .accordion:focus-within { border-color: var(--sea); }
+    .accordion-btn {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 14px 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: .88rem;
+      font-weight: 600;
+      color: var(--ink);
+      text-align: left;
+      gap: 8px;
+      transition: background .12s;
+    }
+    .accordion-btn:hover { background: var(--paper); }
+    .acc-left { display: flex; align-items: center; gap: 10px; }
+    .acc-icon {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      font-family: var(--font-mono);
+      font-size: .65rem;
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+    .acc-icon.sql    { background: var(--sea-soft); color: var(--sea); }
+    .acc-icon.result { background: #e8f7ef; color: #1a7a4c; }
+    .acc-icon.memo   { background: var(--coral-soft); color: var(--coral-dk); }
+    .chevron {
+      width: 18px;
+      height: 18px;
+      color: var(--muted);
+      transition: transform .2s;
+      flex-shrink: 0;
+    }
+    .accordion-btn[aria-expanded="true"] .chevron { transform: rotate(180deg); }
+    .accordion-body {
+      display: none;
+      border-top: 1px solid var(--line-soft);
+      padding: 14px 15px 16px;
+      background: var(--paper);
+    }
+    .accordion-body.open { display: block; animation: rise .25s ease both; }
+
+    pre {
+      background: var(--code-bg);
+      color: var(--code-text);
+      padding: 14px 15px;
+      font-family: var(--font-mono);
+      font-size: .76rem;
+      line-height: 1.65;
+      overflow-x: auto;
+      white-space: pre;
+    }
+    .sql-result {
+      font-family: var(--font-mono);
+      font-size: .76rem;
+      background: var(--surface);
+      border: 1px solid var(--line-soft);
+      padding: 12px 13px;
+      white-space: pre-wrap;
+      line-height: 1.6;
+    }
+    .commentary {
+      font-size: .86rem;
+      line-height: 1.7;
+      color: var(--ink-soft);
+      white-space: pre-wrap;
+    }
+
+    @media (max-width: 900px) {
+      .app { grid-template-columns: 1fr; }
+      .rail {
+        position: relative;
+        height: auto;
+        border-right: none;
+        border-bottom: 3px solid var(--coral);
+      }
+      .status { margin-top: 8px; }
+      .stage { padding: 28px 18px 64px; }
+      .results-grid, .chips, .pipeline { grid-template-columns: 1fr; }
+      .pipeline { grid-template-columns: 1fr 1fr; }
+      .input-row { flex-direction: column; }
+      #ask-btn {
+        min-height: 48px;
+        clip-path: none;
+      }
+      .intro h1 { max-width: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <aside class="rail" aria-label="Coverage and brand">
+    <div class="brand">
+      <div class="brand-row">
+        <div class="mark">F</div>
+        <div class="logo">Fath<span>om</span></div>
+      </div>
+      <p class="tagline">Numbers from the ledger. Story from the filings. One brief.</p>
+    </div>
+
+    <div class="rail-block">
+      <h2>Coverage</h2>
+      <div class="ticker-big">AURM</div>
+      <div class="company-name">Aurora Mobility Inc.</div>
+      <div class="coverage-list">
+        <div class="cov-row">
+          <span class="cov-label">Sector</span>
+          <span class="cov-value">EV Charging</span>
+        </div>
+        <div class="cov-row">
+          <span class="cov-label">History</span>
+          <span class="cov-value">11 quarters</span>
+        </div>
+        <div class="cov-row">
+          <span class="cov-label">Sources</span>
+          <span class="cov-value">SQL + RAG</span>
+        </div>
+        <div class="cov-row">
+          <span class="cov-label">Window</span>
+          <span class="cov-value">2022–2024</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="status"><span class="status-dot" aria-hidden="true"></span> Live · SQL + filings</div>
+  </aside>
+
+  <main class="stage">
+    <section class="intro">
+      <div class="eyebrow">Research desk</div>
+      <h1>Ask deep. Get the <em>whole</em> picture.</h1>
+      <p>
+        Fathom pulls exact figures from Postgres and the matching management voice from filings, then writes one answer you can actually use.
+      </p>
+    </section>
+
+    <section class="composer">
+      <div class="composer-label">Your question</div>
+      <div class="input-row">
+        <input id="question" type="text"
+          placeholder="What was Q3 2024 revenue and what drove growth?"
+          autocomplete="off" />
+        <button id="ask-btn" onclick="submitQuery()">Ask</button>
+      </div>
+    </section>
+
+    <div class="starters-label">Try one of these</div>
+    <div class="chips" id="chips"></div>
+
+    <div class="idle-note" id="idle-note">
+      Pick a starter or type your own. Answers ground <strong>exact ledger totals</strong> in <strong>filing language</strong> from the executive memos.
+    </div>
+
+    <div id="loading">
+      <div class="loading-title">Working through it</div>
+      <div class="loading-sub" id="loading-text">Drafting SQL…</div>
+      <div class="pipeline" id="pipeline">
+        <div class="pipe-step" data-step="0">
+          <div class="pipe-num">01</div>
+          <div class="pipe-label">Draft SQL</div>
+        </div>
+        <div class="pipe-step" data-step="1">
+          <div class="pipe-num">02</div>
+          <div class="pipe-label">Pull ledger</div>
+        </div>
+        <div class="pipe-step" data-step="2">
+          <div class="pipe-num">03</div>
+          <div class="pipe-label">Scan filings</div>
+        </div>
+        <div class="pipe-step" data-step="3">
+          <div class="pipe-num">04</div>
+          <div class="pipe-label">Write brief</div>
+        </div>
+      </div>
+      <div class="pipe-bar"><span></span></div>
+    </div>
+
+    <div id="error"></div>
+    <div id="results"></div>
+  </main>
+</div>
+
+<script>
+const EXAMPLES = [
+  { kicker: "Revenue", text: "What was Aurora Mobility's revenue in Q3 2024 and what drove the growth?" },
+  { kicker: "Compare", text: "Compare total revenue and net income across all quarters in 2024." },
+  { kicker: "Segments", text: "Which segment grew the fastest in Q1 2024 and what did management say?" },
+  { kicker: "Margins", text: "What is Aurora Mobility's gross margin trend from 2022 to 2024?" },
+  { kicker: "Members", text: "How many network members did Aurora have in Q3 2024 and what was ARPM?" },
+  { kicker: "FY23", text: "Summarize the full-year 2023 financial performance." },
+];
+
+const LOADING_STEPS = [
+  "Drafting SQL…",
+  "Pulling ledger figures…",
+  "Scanning filings…",
+  "Writing the brief…",
+];
+
+const chipsEl = document.getElementById("chips");
+EXAMPLES.forEach(({ kicker, text }) => {
+  const btn = document.createElement("button");
+  btn.className = "chip";
+  btn.innerHTML = `<span class="chip-kicker">${kicker}</span>${esc(text)}`;
+  btn.onclick = () => {
+    document.getElementById("question").value = text;
+    submitQuery();
+  };
+  chipsEl.appendChild(btn);
+});
+
+document.getElementById("question").addEventListener("keydown", e => {
+  if (e.key === "Enter") submitQuery();
+});
+
+function setPipelineStep(idx) {
+  document.querySelectorAll(".pipe-step").forEach(el => {
+    const step = Number(el.dataset.step);
+    el.classList.toggle("active", step === idx);
+    el.classList.toggle("done", step < idx);
+  });
+}
+
+async function submitQuery() {
+  const input    = document.getElementById("question");
+  const askBtn   = document.getElementById("ask-btn");
+  const loading  = document.getElementById("loading");
+  const results  = document.getElementById("results");
+  const errorEl  = document.getElementById("error");
+  const idleNote = document.getElementById("idle-note");
+
+  const question = input.value.trim();
+  if (!question) return;
+
+  results.classList.remove("show");
+  results.innerHTML = "";
+  errorEl.innerHTML = "";
+  idleNote.style.display = "none";
+
+  askBtn.disabled = true;
+  loading.style.display = "block";
+  setPipelineStep(0);
+
+  let stepIdx = 0;
+  const loadingText = document.getElementById("loading-text");
+  loadingText.textContent = LOADING_STEPS[0];
+  const stepInterval = setInterval(() => {
+    stepIdx = (stepIdx + 1) % LOADING_STEPS.length;
+    loadingText.textContent = LOADING_STEPS[stepIdx];
+    setPipelineStep(stepIdx);
+  }, 2800);
+
+  try {
+    const resp = await fetch("/api/query", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ question }),
+    });
+
+    if (!resp.ok) {
+      const err = await resp.json().catch(() => ({ detail: resp.statusText }));
+      throw new Error(err.detail || "Request failed");
+    }
+
+    setPipelineStep(4);
+    renderResults(await resp.json());
+  } catch (err) {
+    errorEl.innerHTML = `<div class="error-card">${esc(err.message)}</div>`;
+    idleNote.style.display = "";
+  } finally {
+    clearInterval(stepInterval);
+    loading.style.display = "none";
+    askBtn.disabled = false;
+  }
+}
+
+function renderResults(data) {
+  const results = document.getElementById("results");
+  results.innerHTML = "";
+
+  const qDiv = document.createElement("div");
+  qDiv.className = "question-display";
+  qDiv.innerHTML = `
+    <span class="q-badge">YOUR QUESTION</span>
+    <div class="q-text">${esc(data.question)}</div>`;
+  results.appendChild(qDiv);
+
+  const grid = document.createElement("div");
+  grid.className = "results-grid";
+
+  const finalCard = document.createElement("div");
+  finalCard.className = "final-card";
+  finalCard.innerHTML = `
+    <div class="final-header">
+      <span class="final-header-title">Briefing</span>
+      <span class="final-meta">SQL × filings</span>
+    </div>
+    <div class="final-body">
+      <div class="md-content">${renderMarkdown(data.final_answer)}</div>
+    </div>`;
+  grid.appendChild(finalCard);
+
+  const details = document.createElement("div");
+  details.className = "details-section";
+  details.appendChild(makeAccordion(
+    "sql", "SQL", "Generated SQL",
+    `<pre>${esc(data.sql_query)}</pre>`
+  ));
+  details.appendChild(makeAccordion(
+    "result", "TBL", "Ledger extract",
+    `<div class="sql-result">${esc(data.sql_result)}</div>`
+  ));
+  details.appendChild(makeAccordion(
+    "memo", "DOC", "Filing excerpts",
+    `<div class="commentary">${esc(data.vector_context)}</div>`
+  ));
+  grid.appendChild(details);
+
+  results.appendChild(grid);
+  results.classList.add("show");
+  results.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function makeAccordion(iconClass, iconText, label, bodyHtml) {
+  const id = "acc-" + Math.random().toString(36).slice(2);
+  const div = document.createElement("div");
+  div.className = "accordion";
+  div.innerHTML = `
+    <button class="accordion-btn" aria-expanded="false"
+            onclick="toggleAcc(this,'${id}')">
+      <span class="acc-left">
+        <span class="acc-icon ${iconClass}">${iconText}</span>
+        ${label}
+      </span>
+      <svg class="chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <div class="accordion-body" id="${id}">${bodyHtml}</div>`;
+  return div;
+}
+
+function toggleAcc(btn, id) {
+  const body = document.getElementById(id);
+  const open = body.classList.toggle("open");
+  btn.setAttribute("aria-expanded", open);
+}
+
+function renderMarkdown(text) {
+  if (typeof marked !== "undefined") {
+    return marked.parse(text);
+  }
+  return `<p>${esc(text).replace(/\n\n/g, "</p><p>").replace(/\n/g, "<br>")}</p>`;
+}
+
+function esc(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+</script>
+</body>
+</html>
