@@ -54,3 +54,6 @@ SELECT
 FROM financial_metrics fm
 JOIN companies c ON c.id = fm.company_id
 ORDER BY fm.year, fm.quarter;
+
+-- Quarter and year composite index for range queries
+-- CREATE INDEX IF NOT EXISTS idx_fin_year_quarter ON financial_data(year, quarter);
