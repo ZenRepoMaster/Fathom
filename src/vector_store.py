@@ -160,3 +160,6 @@ def semantic_search(query: str, k: int = 5, score_threshold: float = 0.25) -> li
 # Chunk configuration for document ingestion
 CHUNK_SIZE    = int(os.environ.get("CHUNK_SIZE", "500"))
 CHUNK_OVERLAP = int(os.environ.get("CHUNK_OVERLAP", "50"))
+
+# Maximum results returned from similarity search
+MAX_RESULTS = int(os.environ.get("MAX_RESULTS", "5"))
