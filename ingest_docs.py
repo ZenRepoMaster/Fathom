@@ -37,3 +37,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# Batch size for Pinecone upsert operations
+INGEST_BATCH_SIZE = int(os.environ.get("INGEST_BATCH_SIZE", "100"))
