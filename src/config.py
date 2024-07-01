@@ -60,3 +60,7 @@ UI_THEME = os.environ.get("UI_THEME", "light")
 CACHE_ENABLED  = os.environ.get("CACHE_ENABLED", "true").lower() == "true"
 CACHE_TTL      = int(os.environ.get("CACHE_TTL", "300"))
 CACHE_MAX_SIZE = int(os.environ.get("CACHE_MAX_SIZE", "100"))
+
+# Logging configuration
+LOG_LEVEL  = os.environ.get("LOG_LEVEL", "INFO")
+LOG_FORMAT = os.environ.get("LOG_FORMAT", "json")
