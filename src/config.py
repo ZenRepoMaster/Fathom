@@ -69,3 +69,7 @@ LOG_FORMAT = os.environ.get("LOG_FORMAT", "json")
 RATE_LIMIT_ENABLED   = os.environ.get("RATE_LIMIT_ENABLED", "true").lower() == "true"
 RATE_LIMIT_REQUESTS  = int(os.environ.get("RATE_LIMIT_REQUESTS", "60"))
 RATE_LIMIT_WINDOW    = int(os.environ.get("RATE_LIMIT_WINDOW", "60"))
+
+# Ticker configuration
+DEFAULT_TICKER    = os.environ.get("DEFAULT_TICKER", "AURM")
+SUPPORTED_TICKERS = os.environ.get("SUPPORTED_TICKERS", "AURM").split(",")
