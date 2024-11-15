@@ -73,3 +73,6 @@ RATE_LIMIT_WINDOW    = int(os.environ.get("RATE_LIMIT_WINDOW", "60"))
 # Ticker configuration
 DEFAULT_TICKER    = os.environ.get("DEFAULT_TICKER", "AURM")
 SUPPORTED_TICKERS = os.environ.get("SUPPORTED_TICKERS", "AURM").split(",")
+
+# Input sanitization
+QUERY_MAX_LENGTH = int(os.environ.get("QUERY_MAX_LENGTH", "500"))
