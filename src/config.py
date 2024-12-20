@@ -76,3 +76,6 @@ SUPPORTED_TICKERS = os.environ.get("SUPPORTED_TICKERS", "AURM").split(",")
 
 # Input sanitization
 QUERY_MAX_LENGTH = int(os.environ.get("QUERY_MAX_LENGTH", "500"))
+
+# Pinecone request timeout
+PINECONE_REQUEST_TIMEOUT = int(os.environ.get("PINECONE_REQUEST_TIMEOUT", "10"))
