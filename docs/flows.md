@@ -104,3 +104,8 @@ Set `ENABLE_PARALLEL_SEARCH=false` to run them sequentially for debugging.
 
 Set `SUPPORTED_TICKERS` to a comma-separated list of ticker symbols.
 Queries are scoped to `DEFAULT_TICKER` unless overridden in the request.
+
+## Database Connection Pool
+
+Pool settings: `DB_POOL_SIZE` (default 5), `DB_MAX_OVERFLOW` (default 10),
+`DB_POOL_RECYCLE` (default 3600s). Tune for your PostgreSQL `max_connections`.
