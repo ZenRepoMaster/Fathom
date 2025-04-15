@@ -124,3 +124,7 @@ SQL_TIMEOUT = int(os.environ.get("SQL_TIMEOUT", "30"))
 
 # SQL keyword blocklist for user-supplied input
 BLOCKED_SQL_KEYWORDS = ["drop", "delete", "truncate", "alter", "insert", "update"]
+
+# SQL retry configuration
+SQL_MAX_RETRIES    = int(os.environ.get("SQL_MAX_RETRIES", "2"))
+SQL_RETRY_DELAY    = float(os.environ.get("SQL_RETRY_DELAY", "0.5"))
