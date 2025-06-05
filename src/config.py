@@ -83,3 +83,7 @@ PINECONE_REQUEST_TIMEOUT = int(os.environ.get("PINECONE_REQUEST_TIMEOUT", "10"))
 # SQLAlchemy pool advanced settings
 DB_MAX_OVERFLOW  = int(os.environ.get("DB_MAX_OVERFLOW", "10"))
 DB_POOL_RECYCLE  = int(os.environ.get("DB_POOL_RECYCLE", "3600"))
+
+# Configuration validation
+REQUIRED_VARS   = ["LLM_API_KEY", "PINECONE_API_KEY"]
+WARN_ON_DEFAULTS = os.environ.get("WARN_ON_DEFAULTS", "true").lower() == "true"
