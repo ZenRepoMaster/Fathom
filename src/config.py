@@ -87,3 +87,6 @@ DB_POOL_RECYCLE  = int(os.environ.get("DB_POOL_RECYCLE", "3600"))
 # Configuration validation
 REQUIRED_VARS   = ["LLM_API_KEY", "PINECONE_API_KEY"]
 WARN_ON_DEFAULTS = os.environ.get("WARN_ON_DEFAULTS", "true").lower() == "true"
+
+# Async worker pool size for batch operations
+ASYNC_POOL_SIZE = int(os.environ.get("ASYNC_POOL_SIZE", "10"))
