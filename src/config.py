@@ -93,3 +93,6 @@ ASYNC_POOL_SIZE = int(os.environ.get("ASYNC_POOL_SIZE", "10"))
 
 # Pinecone serverless mode
 PINECONE_SERVERLESS = os.environ.get("PINECONE_SERVERLESS", "false").lower() == "true"
+
+# Briefing length cap
+MAX_BRIEFING_LENGTH = int(os.environ.get("MAX_BRIEFING_LENGTH", "4000"))
