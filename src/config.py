@@ -96,3 +96,6 @@ PINECONE_SERVERLESS = os.environ.get("PINECONE_SERVERLESS", "false").lower() == 
 
 # Briefing length cap
 MAX_BRIEFING_LENGTH = int(os.environ.get("MAX_BRIEFING_LENGTH", "4000"))
+
+# LangSmith tracing
+LANGCHAIN_TRACING = os.environ.get("LANGCHAIN_TRACING_V2", "false")
