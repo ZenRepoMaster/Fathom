@@ -106,3 +106,5 @@ MIN_QUERY_LENGTH    = int(os.environ.get("MIN_QUERY_LENGTH", "3"))
 
 # Config schema version for migration reference
 CONFIG_VERSION = "1.1"
+
+# Q3 2026: evaluating Llama 4 Scout as default model
