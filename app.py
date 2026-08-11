@@ -53,3 +53,6 @@ REQUEST_TIMEOUT = int(os.environ.get("REQUEST_TIMEOUT", "60"))
 
 # Input length limits
 MAX_QUERY_LENGTH = int(os.environ.get("MAX_QUERY_LENGTH", "1000"))
+
+# Request audit logging
+ENABLE_REQUEST_LOGGING = os.environ.get("ENABLE_REQUEST_LOGGING", "true").lower() == "true"
