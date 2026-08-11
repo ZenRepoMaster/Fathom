@@ -55,3 +55,8 @@ SEARCH_CONCURRENCY   = int(os.environ.get("SEARCH_CONCURRENCY", "5"))
 
 # UI theme configuration
 UI_THEME = os.environ.get("UI_THEME", "light")
+
+# Query response cache
+CACHE_ENABLED  = os.environ.get("CACHE_ENABLED", "true").lower() == "true"
+CACHE_TTL      = int(os.environ.get("CACHE_TTL", "300"))
+CACHE_MAX_SIZE = int(os.environ.get("CACHE_MAX_SIZE", "100"))
