@@ -64,3 +64,8 @@ CACHE_MAX_SIZE = int(os.environ.get("CACHE_MAX_SIZE", "100"))
 # Logging configuration
 LOG_LEVEL  = os.environ.get("LOG_LEVEL", "INFO")
 LOG_FORMAT = os.environ.get("LOG_FORMAT", "json")
+
+# Rate limiting
+RATE_LIMIT_ENABLED   = os.environ.get("RATE_LIMIT_ENABLED", "true").lower() == "true"
+RATE_LIMIT_REQUESTS  = int(os.environ.get("RATE_LIMIT_REQUESTS", "60"))
+RATE_LIMIT_WINDOW    = int(os.environ.get("RATE_LIMIT_WINDOW", "60"))
