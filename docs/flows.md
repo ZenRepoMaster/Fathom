@@ -94,3 +94,8 @@ Browser
 
 The agent runs SQL generation and vector search in parallel via `asyncio.gather`,
 then synthesises both results into a single markdown briefing.
+
+## Async Parallel Search
+
+SQL generation and Pinecone search run concurrently via `asyncio.gather`.
+Set `ENABLE_PARALLEL_SEARCH=false` to run them sequentially for debugging.

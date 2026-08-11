@@ -47,3 +47,8 @@ MAX_TOKENS = int(os.environ.get("MAX_TOKENS", "2048"))
 
 # CORS configuration
 CORS_ORIGINS = os.environ.get("CORS_ORIGINS", "*").split(",")
+
+# Async parallel search configuration
+PARALLEL_TIMEOUT     = int(os.environ.get("PARALLEL_TIMEOUT", "45"))
+ENABLE_PARALLEL      = os.environ.get("ENABLE_PARALLEL_SEARCH", "true").lower() == "true"
+SEARCH_CONCURRENCY   = int(os.environ.get("SEARCH_CONCURRENCY", "5"))
