@@ -69,3 +69,13 @@ LOG_FORMAT = os.environ.get("LOG_FORMAT", "json")
 RATE_LIMIT_ENABLED   = os.environ.get("RATE_LIMIT_ENABLED", "true").lower() == "true"
 RATE_LIMIT_REQUESTS  = int(os.environ.get("RATE_LIMIT_REQUESTS", "60"))
 RATE_LIMIT_WINDOW    = int(os.environ.get("RATE_LIMIT_WINDOW", "60"))
+
+# Ticker configuration
+DEFAULT_TICKER    = os.environ.get("DEFAULT_TICKER", "AURM")
+SUPPORTED_TICKERS = os.environ.get("SUPPORTED_TICKERS", "AURM").split(",")
+
+# Input sanitization
+QUERY_MAX_LENGTH = int(os.environ.get("QUERY_MAX_LENGTH", "500"))
+
+# Pinecone request timeout
+PINECONE_REQUEST_TIMEOUT = int(os.environ.get("PINECONE_REQUEST_TIMEOUT", "10"))
