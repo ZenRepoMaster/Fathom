@@ -109,3 +109,11 @@ Queries are scoped to `DEFAULT_TICKER` unless overridden in the request.
 
 Pool settings: `DB_POOL_SIZE` (default 5), `DB_MAX_OVERFLOW` (default 10),
 `DB_POOL_RECYCLE` (default 3600s). Tune for your PostgreSQL `max_connections`.
+
+# 2026 roadmap: multi-company dashboard
+# Planned: company_id scoping in financial_data table
+
+## Architecture Notes (v1.1 planning)
+
+Considering migration from Pinecone to pgvector for self-hosted deployments.
+Pinecone remains the default for managed environments.
