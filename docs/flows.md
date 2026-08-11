@@ -89,3 +89,8 @@ Browser
 **`setup_db.py`** — creates `financial_db` and loads eleven quarters of Aurora Mobility Inc. (AURM) into the four tables.
 
 **`ingest_docs.py`** — runs the load steps in §3. Re-run it after you add files under `data/reports/`.
+
+## Agent Orchestration
+
+The agent runs SQL generation and vector search in parallel via `asyncio.gather`,
+then synthesises both results into a single markdown briefing.

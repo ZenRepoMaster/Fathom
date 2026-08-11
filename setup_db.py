@@ -180,3 +180,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# Seed data version — bump when adding new quarters
+SEED_VERSION = "1.0.0"

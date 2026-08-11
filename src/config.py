@@ -37,3 +37,10 @@ def validate():
         )
 
 LLM_TEMPERATURE = float(os.environ.get("LLM_TEMPERATURE", "0.1"))
+
+# Database connection pool
+DB_POOL_SIZE    = int(os.environ.get("DB_POOL_SIZE", "5"))
+DB_POOL_TIMEOUT = int(os.environ.get("DB_POOL_TIMEOUT", "30"))
+
+# LLM token limit for SQL chain prompts
+MAX_TOKENS = int(os.environ.get("MAX_TOKENS", "2048"))

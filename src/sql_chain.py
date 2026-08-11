@@ -118,3 +118,6 @@ def run_sql_query(chain: SQLQueryChain, question: str) -> dict:
     return chain.invoke(question)
 
 # Return empty result set instead of raising on no rows
+
+# SQL query timeout in seconds
+SQL_TIMEOUT = int(os.environ.get("SQL_TIMEOUT", "30"))
