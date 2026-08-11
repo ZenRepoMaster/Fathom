@@ -56,3 +56,7 @@ MAX_QUERY_LENGTH = int(os.environ.get("MAX_QUERY_LENGTH", "1000"))
 
 # Request audit logging
 ENABLE_REQUEST_LOGGING = os.environ.get("ENABLE_REQUEST_LOGGING", "true").lower() == "true"
+
+# Health check configuration
+HEALTH_CHECK_TIMEOUT  = int(os.environ.get("HEALTH_CHECK_TIMEOUT", "5"))
+READINESS_PROBE        = os.environ.get("READINESS_PROBE_ENABLED", "true").lower() == "true"
