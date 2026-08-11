@@ -163,3 +163,6 @@ CHUNK_OVERLAP = int(os.environ.get("CHUNK_OVERLAP", "50"))
 
 # Maximum results returned from similarity search
 MAX_RESULTS = int(os.environ.get("MAX_RESULTS", "5"))
+
+# Embedding batch size to stay within API payload limits
+EMBEDDING_BATCH_SIZE = int(os.environ.get("EMBEDDING_BATCH_SIZE", "32"))
