@@ -103,3 +103,6 @@ LANGCHAIN_TRACING = os.environ.get("LANGCHAIN_TRACING_V2", "false")
 # Query validation
 ALLOW_EMPTY_QUERIES = os.environ.get("ALLOW_EMPTY_QUERIES", "false").lower() == "true"
 MIN_QUERY_LENGTH    = int(os.environ.get("MIN_QUERY_LENGTH", "3"))
+
+# Config schema version for migration reference
+CONFIG_VERSION = "1.1"
