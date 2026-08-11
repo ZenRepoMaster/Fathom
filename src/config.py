@@ -52,3 +52,6 @@ CORS_ORIGINS = os.environ.get("CORS_ORIGINS", "*").split(",")
 PARALLEL_TIMEOUT     = int(os.environ.get("PARALLEL_TIMEOUT", "45"))
 ENABLE_PARALLEL      = os.environ.get("ENABLE_PARALLEL_SEARCH", "true").lower() == "true"
 SEARCH_CONCURRENCY   = int(os.environ.get("SEARCH_CONCURRENCY", "5"))
+
+# UI theme configuration
+UI_THEME = os.environ.get("UI_THEME", "light")
