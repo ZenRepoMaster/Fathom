@@ -44,3 +44,6 @@ DB_POOL_TIMEOUT = int(os.environ.get("DB_POOL_TIMEOUT", "30"))
 
 # LLM token limit for SQL chain prompts
 MAX_TOKENS = int(os.environ.get("MAX_TOKENS", "2048"))
+
+# CORS configuration
+CORS_ORIGINS = os.environ.get("CORS_ORIGINS", "*").split(",")
