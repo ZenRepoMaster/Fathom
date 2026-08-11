@@ -99,3 +99,8 @@ then synthesises both results into a single markdown briefing.
 
 SQL generation and Pinecone search run concurrently via `asyncio.gather`.
 Set `ENABLE_PARALLEL_SEARCH=false` to run them sequentially for debugging.
+
+## Multi-Ticker Support
+
+Set `SUPPORTED_TICKERS` to a comma-separated list of ticker symbols.
+Queries are scoped to `DEFAULT_TICKER` unless overridden in the request.
