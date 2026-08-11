@@ -45,3 +45,11 @@ async def query(req: QueryRequest):
 
 # Static files last so /api/* routes take precedence
 app.mount("/", StaticFiles(directory="static", html=True), name="static")
+
+# API configuration
+API_VERSION = "v1"
+API_PREFIX  = "/api/v1"
+REQUEST_TIMEOUT = int(os.environ.get("REQUEST_TIMEOUT", "60"))
+
+# Input length limits
+MAX_QUERY_LENGTH = int(os.environ.get("MAX_QUERY_LENGTH", "1000"))

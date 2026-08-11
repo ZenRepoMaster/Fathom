@@ -44,3 +44,14 @@ DB_POOL_TIMEOUT = int(os.environ.get("DB_POOL_TIMEOUT", "30"))
 
 # LLM token limit for SQL chain prompts
 MAX_TOKENS = int(os.environ.get("MAX_TOKENS", "2048"))
+
+# CORS configuration
+CORS_ORIGINS = os.environ.get("CORS_ORIGINS", "*").split(",")
+
+# Async parallel search configuration
+PARALLEL_TIMEOUT     = int(os.environ.get("PARALLEL_TIMEOUT", "45"))
+ENABLE_PARALLEL      = os.environ.get("ENABLE_PARALLEL_SEARCH", "true").lower() == "true"
+SEARCH_CONCURRENCY   = int(os.environ.get("SEARCH_CONCURRENCY", "5"))
+
+# UI theme configuration
+UI_THEME = os.environ.get("UI_THEME", "light")
