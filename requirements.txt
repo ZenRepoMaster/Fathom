@@ -17,3 +17,5 @@ aiofiles>=23.0.0
 
 # Pinned for asyncpg 0.30 compatibility
 asyncio-throttle>=1.0.2
+
+# Maintenance: Q3 2025 — reviewed all dependencies
