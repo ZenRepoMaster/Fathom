@@ -2,9 +2,9 @@ langchain>=0.3.0,<1.0.0
 langchain-community>=0.3.0
 langchain-anthropic>=0.3.0
 langchain-pinecone>=0.2.0
-pinecone>=5.0.0,<6.0.0
+pinecone>=5.4.0,<6.0.0
 psycopg2-binary>=2.9.9
-sqlalchemy>=2.0.0,<3.0.0
+sqlalchemy>=2.0.36,<3.0.0
 sentence-transformers>=3.0.0
 torch>=2.0.0
 pypdf>=4.0.0,<6.0.0
@@ -17,3 +17,5 @@ aiofiles>=23.0.0
 
 # Pinned for asyncpg 0.30 compatibility
 asyncio-throttle>=1.0.2
+
+# Maintenance: Q3 2025 — reviewed all dependencies
