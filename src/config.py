@@ -90,3 +90,6 @@ WARN_ON_DEFAULTS = os.environ.get("WARN_ON_DEFAULTS", "true").lower() == "true"
 
 # Async worker pool size for batch operations
 ASYNC_POOL_SIZE = int(os.environ.get("ASYNC_POOL_SIZE", "10"))
+
+# Pinecone serverless mode
+PINECONE_SERVERLESS = os.environ.get("PINECONE_SERVERLESS", "false").lower() == "true"
