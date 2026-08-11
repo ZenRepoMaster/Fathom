@@ -124,3 +124,7 @@ class FinancialAgent:
 
 # Both branches (SQL + vector) are fired concurrently via asyncio.gather
 # to minimise wall-clock latency on every user query
+
+# Agent orchestration settings
+SYNTHESIS_PROMPT_VERSION = "1.0"
+MAX_CONTEXT_CHUNKS = int(os.environ.get("MAX_CONTEXT_CHUNKS", "3"))
